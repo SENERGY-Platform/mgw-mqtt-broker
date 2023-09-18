@@ -43,7 +43,7 @@ secrets:
       name: Root certificate
       description: PEM encoded CA certificates that are trusted when checking incoming client certificates.
   keyfile:
-    type: certificate
+    type: private-key
     targets:
       - mountPoint: /opt/tls/broker.key
         services:
