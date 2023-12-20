@@ -2,18 +2,21 @@
 
 echo "Setup config file"
 
-CONFIG_PATH=/mosquitto/config/mosquitto.conf
 if [[ "${AUTH_ENABLED}" = "true" ]]; then
     echo "Create config with authentication"
-    if [ ! -f $CONFIG_PATH ]; then
+    CONFIG_PATH=/mosquitto/config/mosquitto_with_auth.conf
+    if [ -f $CONFIG_PATH ]; then
         mv /mosquitto/config/mosquitto_with_auth.conf /mosquitto/config/mosquitto.conf
+        echo "Config file was set successfully"
     else
         echo "Config file already exists"
     fi
 else 
-    echo "create config without authentication"
- if [ ! -f $CONFIG_PATH ]; then
+    echo "Create config without authentication"
+    CONFIG_PATH=/mosquitto/config/mosquitto_without_auth.conf
+    if [ -f $CONFIG_PATH ]; then
         mv /mosquitto/config/mosquitto_without_auth.conf /mosquitto/config/mosquitto.conf
+        echo "Config file was set successfully"
     else
         echo "Config file already exists"
     fi
@@ -25,7 +28,7 @@ if [[ "${AUTH_ENABLED}" = "true" ]]; then
     PASSWDFILE=/mosquitto/passwd/passwd
 
     if [ ! -f $PASSWDFILE ]; then
-        echo "password file does not exist -> create with credentials from env"
+        echo "Password file does not exist -> create with credentials from env"
         if [[ -z "${USERNAME}" ]]; then
             echo "USERNAME env is missing"
             return
