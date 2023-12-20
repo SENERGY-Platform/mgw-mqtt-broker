@@ -37,5 +37,10 @@ else
     echo "Authentication is disabled" 
 fi 
 
+echo "Set permissions for mosquitto user"
+user="$(id -u)"
+if [ "$user" = '0' ]; then
+	[ -d "/mosquitto" ] && chown -R mosquitto:mosquitto /mosquitto || true
+fi
 echo "Start command"
 exec "$@"
