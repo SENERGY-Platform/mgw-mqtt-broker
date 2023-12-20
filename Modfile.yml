@@ -73,14 +73,15 @@ secrets:
           - broker 
     userInput:
       name: Auth Credentials
-config:
+    optional: true
+configs:
   auth_state:
-    dataType: bool
-    value: false
+    dataType: string
+    value: "false"
     targets:
       - refVar: AUTH_ENABLED
         services:
           - broker
     userInput:
-      type: bool
+      type: string
       name: Enable basic authentication at broker. When enabled set USERNAME and PASSWORD env.
