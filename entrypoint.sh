@@ -1,26 +1,17 @@
 #!/bin/sh
 
 echo "Setup config file"
+CONFIG_PATH=/mosquitto/config/mosquitto.conf
 
 if [[ "${AUTH_ENABLED}" = "true" ]]; then
-    echo "Create config with authentication"
-    CONFIG_PATH=/mosquitto/config/mosquitto_with_auth.conf
-    if [ -f $CONFIG_PATH ]; then
-        mv /mosquitto/config/mosquitto_with_auth.conf /mosquitto/config/mosquitto.conf
-        echo "Config file was set successfully"
-    else
-        echo "Config file already exists"
-    fi
+    echo "Use config with authentication"
+    cp /mosquitto/config/mosquitto_with_auth.conf ${CONFIG_PATH}
 else 
-    echo "Create config without authentication"
-    CONFIG_PATH=/mosquitto/config/mosquitto_without_auth.conf
-    if [ -f $CONFIG_PATH ]; then
-        mv /mosquitto/config/mosquitto_without_auth.conf /mosquitto/config/mosquitto.conf
-        echo "Config file was set successfully"
-    else
-        echo "Config file already exists"
-    fi
+    echo "Use config without authentication"
+    cp /mosquitto/config/mosquitto_without_auth.conf ${CONFIG_PATH} 
 fi 
+echo "Config file was set successfully"
+
 
 if [[ "${AUTH_ENABLED}" = "true" ]]; then
     echo "Authentication is enabled -> check/create password file"
