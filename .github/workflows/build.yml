@@ -2,8 +2,9 @@ name: 'Build'
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]-beta[0-9]+'
 jobs:
   multi:
     runs-on: ubuntu-latest
@@ -39,3 +40,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/senergy-platform/mosquitto-mqtt-broker:latest
+            ghcr.io/senergy-platform/mosquitto-mqtt-broker:${{ github.ref_name }}
