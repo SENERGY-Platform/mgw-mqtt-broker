@@ -4,7 +4,7 @@ name: MQTT Broker
 description: Eclipse Mosquitto MQTT broker with TLS support.
 license: Apache-2.0 license
 author: InfAI (CC SES)
-version: v1.2.13
+version: v1.2.14
 type: add-on
 tags:
   - mqtt
@@ -13,7 +13,7 @@ deploymentType: single
 services:
   broker:
     name: Mosquitto MQTT Broker
-    image: ghcr.io/senergy-platform/mosquitto-mqtt-broker:v1.2.13
+    image: ghcr.io/senergy-platform/mosquitto-mqtt-broker:v1.2.14
     ports:
       - port: 1883
         hostPort: 1883
@@ -26,10 +26,6 @@ volumes:
         - broker
   log:
     - mountPoint: /mosquitto/log
-      services:
-        - broker
-  passwd:
-    - mountPoint: /mosquitto/passwd
       services:
         - broker
 secrets:
@@ -77,12 +73,14 @@ secrets:
 configs:
   auth_state:
     dataType: string
-    value: "false"
+    value: "no"
+    options:
+      - "yes"
+      - "no"
     targets:
       - refVar: AUTH_ENABLED
         services:
           - broker
     userInput:
       type: text
-      name: Enable authentication
-      description: Enable basic authentication at broker. When enabled set USERNAME and PASSWORD env.
+      name: Use authentication
