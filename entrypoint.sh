@@ -14,25 +14,26 @@ echo "Config file was set successfully"
 
 
 if [[ "${AUTH_ENABLED}" = "true" ]]; then
-    echo "Authentication is enabled -> check/create password file"
+    echo "Authentication is enabled -> check password file"
 
     PASSWDFILE=/mosquitto/passwd/passwd
 
-    if [ ! -f $PASSWDFILE ]; then
-        echo "Password file does not exist -> create with credentials from env"
-        if [[ -z "${USERNAME}" ]]; then
-            echo "USERNAME env is missing"
-            return
-        fi 
-        if [[ -z "${PASSWORD}" ]]; then
-            echo "PASSWORD env is missing"
-            return
-        fi 
-        yes | mosquitto_passwd -c $PASSWDFILE $USERNAME
-        mosquitto_passwd -b $PASSWDFILE $USERNAME $PASSWORD
-    else
-        echo "Password file already exists"
-    fi
+    if [ -f $PASSWDFILE ]; then
+        echo "Override existing password file"
+    fi 
+
+    if [[ -z "${USERNAME}" ]]; then
+        echo "USERNAME env is missing"
+        return
+    fi 
+
+    if [[ -z "${PASSWORD}" ]]; then
+        echo "PASSWORD env is missing"
+        return
+    fi 
+    
+    yes | mosquitto_passwd -c $PASSWDFILE $USERNAME
+    mosquitto_passwd -b $PASSWDFILE $USERNAME $PASSWORD
 else 
     echo "Authentication is disabled" 
 fi 
