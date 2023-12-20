@@ -4,7 +4,7 @@ name: MQTT Broker
 description: Eclipse Mosquitto MQTT broker with TLS support.
 license: Apache-2.0 license
 author: InfAI (CC SES)
-version: v1.2.4
+version: v1.2.5
 type: add-on
 tags:
   - mqtt
@@ -63,7 +63,7 @@ secrets:
   auth:
     type: basic-auth
     targets:
-      - refVar: USERNANE
+      - refVar: USERNAME
         item: username
         services:
           - broker 
