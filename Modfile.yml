@@ -15,6 +15,7 @@ services:
     name: Mosquitto MQTT Broker
     image: ghcr.io/senergy-platform/mosquitto-mqtt-broker:v1.2.14
     ports:
+      - port: 1881
       - port: 1883
         hostPort: 1883
       - port: 8883
