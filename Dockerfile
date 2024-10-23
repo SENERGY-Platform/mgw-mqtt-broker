@@ -1,4 +1,4 @@
-FROM eclipse-mosquitto:2.0.18
+FROM eclipse-mosquitto:2.0.20
 
 COPY mosquitto_with_auth.conf /mosquitto/config/
 COPY mosquitto_without_auth.conf /mosquitto/config/
