@@ -10,6 +10,12 @@ else
     echo "Use config without authentication"
     cp /mosquitto/config/mosquitto_without_auth.conf ${CONFIG_PATH} 
 fi 
+
+# global option, mosquitto cannot set it per listener
+if [[ "${TCP_NODELAY}" = "yes" ]]; then
+    echo "Disable Nagle's algorithm on client sockets"
+    echo "set_tcp_nodelay true" >> ${CONFIG_PATH}
+fi
 echo "Config file was set successfully"
 
 
